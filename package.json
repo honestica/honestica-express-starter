@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Give an express app with config + logging + heatlhcheck",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "http://my-internal-registry.local"
+  },
   "directories": {
     "test": "tests"
   },
