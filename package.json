@@ -1,0 +1,27 @@
+{
+  "name": "honestica-express",
+  "version": "0.0.1",
+  "description": "Give an express app with config + logging + heatlhcheck",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "fast-csv": "^2.0.0",
+    "xmldom": "^0.1.22"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/honestica/honestica-express-node.git"
+  },
+  "author": "Pierrickouw (pierrick@honestica.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/honestica/honestica-express-node/issues"
+  },
+  "homepage": "https://github.com/honestica/honestica-express-node#readme"
+}
