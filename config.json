@@ -1,0 +1,8 @@
+{
+  "port": 3001,
+  "logs": {
+    "console": true, 
+    "file": false
+  },
+  "healthCheck": false
+}

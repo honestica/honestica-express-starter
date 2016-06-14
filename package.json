@@ -1,17 +1,19 @@
 {
-  "name": "honestica-express",
+  "name": "honestica-express-starter",
   "version": "0.0.1",
   "description": "Give an express app with config + logging + heatlhcheck",
   "main": "index.js",
   "publishConfig": {
-    "registry": "http://my-internal-registry.local"
+    "registry": "http://nexus.technical.honestica.com:18081/nexus/content/repositories/npm-honestica/"
   },
   "directories": {
     "test": "tests"
   },
   "dependencies": {
-    "fast-csv": "^2.0.0",
-    "xmldom": "^0.1.22"
+    "express": "^4.13.4",
+    "express-winston": "^1.4.1",
+    "merge-defaults": "^0.2.1",
+    "winston": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {
