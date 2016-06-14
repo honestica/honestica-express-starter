@@ -1,7 +1,7 @@
 # honestica-express-node
 Prepare an express app with config + logging + healthcheck 
 
-## Default config
+## Default config file
 ```
 {
   "port": 3001, // port of the app
@@ -13,7 +13,17 @@ Prepare an express app with config + logging + healthcheck
 }
 ```
 
-## To use it, set your .npmrc with the following
+## To use it ->
+
+```
+const honesticaStarter = require('honestica-express-starter');
+const { app, logger, config } = honesticaStarter('myname', {
+  baseConfigPath: String,
+  heatlhCheckInfo: Function
+});
+```
+
+## To install it, set your .npmrc with the following
 ```
 registry="http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/""
 email="youremail"
@@ -22,3 +32,17 @@ _auth="yourauthstring"
 ```
 
 Your auth string can be obtained by `base64` the string 'username:password' of your `nexus` account
+
+## Config levels
+
+There are 3 levels of config
+
+```
+- defaults (on this package)
+    ^
+    | Override
+- local (define with baseConfigPath)
+    ^
+    | Override
+- system (in /usr/local/honestica/${applicationName}/config.json
+```

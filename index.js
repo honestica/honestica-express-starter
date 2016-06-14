@@ -1,3 +1,4 @@
+const merge = require('lodash.merge');
 const defaults = require('merge-defaults');
 const express = require('express');
 const winston = require('winston');
@@ -18,15 +19,17 @@ module.exports = function(applicationName, opts) {
         healthCheckInfo: function() {}
     });
     
-    const defaultConfig = require('./config.json');
-    let config;
-    try {
-        config = require(options.baseConfigPath);
-    } catch (e) {
-        console.info('base config not found, using default');
-    }
+    const config = require('./config.json');
     
-    config = defaults(config, defaultConfig);
+    try {
+        const userConfig = require(options.baseConfigPath);
+        config = merge(config, userConfig);
+    } catch (e) {}
+    
+    try {
+        const systemConfig = require(`/usr/local/honestica/${applicationName}/config.json`);
+        config = merge(config, systemConfig);
+    } catch(e) {}    
     
     // setup logs
     if (!config.logs) {
