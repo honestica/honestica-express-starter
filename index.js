@@ -8,7 +8,8 @@ const fs = require('fs');
 /**
  * options -> {
  *  baseConfigPath: String,
- *  heatlhCheckInfo: Function
+ *  heatlhCheckInfo: Function,
+ *  autoStart: Boolean
  * }
  * 
  * Returns base app + configured logger
@@ -16,7 +17,8 @@ const fs = require('fs');
 module.exports = function(applicationName, opts) {
     const app = express();
     const options = defaults(opts, {
-        healthCheckInfo: function() {}
+        healthCheckInfo: function() {},
+        autoStart: true
     });
     
     const config = require('./config.json');
@@ -69,10 +71,13 @@ module.exports = function(applicationName, opts) {
     if (!config.port) {
         throw new Error('No port found in config file');
     }
-
-    app.listen(config.port, function () {
-        logger.info(`${applicationName} started on port ${config.port}`);
-    });
+    
+    if (options.autoStart) {
+        app.listen(config.port, function () {
+            logger.info(`${applicationName} started on port ${config.port}`);
+        });
+    }
+    
     
     // health check
     if (config.healthCheck) {

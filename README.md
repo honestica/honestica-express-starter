@@ -19,7 +19,8 @@ Prepare an express app with config + logging + healthcheck
 const honesticaStarter = require('honestica-express-starter');
 const { app, logger, config } = honesticaStarter('myname', {
   baseConfigPath: String,
-  heatlhCheckInfo: Function
+  heatlhCheckInfo: Function,
+  autoStart: Boolean
 });
 ```
 
