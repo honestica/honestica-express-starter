@@ -98,7 +98,6 @@ module.exports = function(applicationName, opts) {
                 if (data !== 'IN') {
                     return res.sendStatus(503);;
                 } else {
-                    console.log(options.healthCheckInfo())
                     return res.send({
                         uptime: process.uptime(),
                         name: applicationName,
