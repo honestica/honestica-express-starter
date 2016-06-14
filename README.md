@@ -41,7 +41,7 @@ There are 3 levels of config
 - defaults (on this package)
     ^
     | Override
-- local (define with baseConfigPath)
+- local (defined with baseConfigPath)
     ^
     | Override
 - system (in /usr/local/honestica/${applicationName}/config.json
