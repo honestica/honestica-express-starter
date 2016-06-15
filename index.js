@@ -91,7 +91,7 @@ module.exports = function(applicationName, opts) {
     }
 
     if (config.logs.file) {
-        transports.push(new winston.transports.file({
+        transports.push(new winston.transports.File({
             filename: config.logs.file,
             json: false,
             formatter: config.logs.logstash ? createLogFormatter(lastCommit, version) : undefined,
