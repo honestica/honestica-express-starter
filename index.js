@@ -8,7 +8,7 @@ const expressWinston = require('express-winston');
 
 const fs = require('fs');
 
-function createLogFormatter(lastCommit, version) {
+function createLogFormatter(appname, lastcommit, version) {
     return function logFormatter(log) {
         const timestamp = common.timestamp();
         const logstashOutput = {};
@@ -16,8 +16,9 @@ function createLogFormatter(lastCommit, version) {
         const baseLog = {
             level: log.level,
             message: log.message,
-            lastCommit: lastCommit,
-            version: version
+            lastcommit,
+            version,
+            appname
         };
 
         let msg = log.message;
@@ -84,7 +85,7 @@ module.exports = function(applicationName, opts) {
             new winston.transports.Console({
                 colorize: true,
                 timestamp: true,
-                formatter: config.logs.logstash ? createLogFormatter(lastCommit, version) : undefined,
+                formatter: config.logs.logstash ? createLogFormatter(applicationName, lastCommit, version) : undefined,
                 json: false
             })
         );
@@ -94,7 +95,7 @@ module.exports = function(applicationName, opts) {
         transports.push(new winston.transports.File({
             filename: config.logs.file,
             json: false,
-            formatter: config.logs.logstash ? createLogFormatter(lastCommit, version) : undefined,
+            formatter: config.logs.logstash ? createLogFormatter(applicationName, lastCommit, version) : undefined,
         }));
     }
 
