@@ -11,14 +11,16 @@ const fs = require('fs');
 function createLogFormatter(appname, lastcommit, version) {
     return function logFormatter(log) {
         const timestamp = common.timestamp();
-        const logstashOutput = {};
-        const meta = common.clone(cycle.decycle(log.meta)) || {};
-        const baseLog = {
-            level: log.level,
-            message: log.message,
+        const logstashOutput = {
             lastcommit,
             version,
             appname
+        };
+
+        const meta = common.clone(cycle.decycle(log.meta)) || {};
+        const baseLog = {
+            level: log.level,
+            message: log.message
         };
 
         let msg = log.message;
