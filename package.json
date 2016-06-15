@@ -1,6 +1,6 @@
 {
   "name": "honestica-express-starter",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Give an express app with config + logging + heatlhcheck",
   "main": "index.js",
   "publishConfig": {
@@ -32,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/honestica/honestica-express-node/issues"
   },
-  "bin" : {
+  "bin": {
     "create-build-info": "create-build-info.js"
   },
   "homepage": "https://github.com/honestica/honestica-express-node#readme"
