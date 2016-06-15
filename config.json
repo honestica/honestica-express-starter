@@ -2,7 +2,8 @@
   "port": 3001,
   "logs": {
     "console": true, 
-    "file": false
+    "file": false,
+    "logstash": false
   },
   "healthCheck": false
 }

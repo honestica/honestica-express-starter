@@ -2,8 +2,35 @@ const merge = require('lodash.merge');
 const defaults = require('merge-defaults');
 const express = require('express');
 const winston = require('winston');
+const common = require('winston/lib/winston/common');
+const winstonDaily = require('winston-daily-rotate-file');
+const cycle = require('cycle');
 const expressWinston = require('express-winston');
+
 const fs = require('fs');
+
+function logFormatter(log) {
+    const timestamp = common.timestamp();
+    const logstashOutput = {};
+    const meta = common.clone(cycle.decycle(log.meta)) || {};
+    const baseLog = {
+        level: log.level,
+        message: log.message,
+    };
+    let msg = log.message;
+
+    if (typeof msg !== 'string') {
+        msg = '' + msg;
+    }
+
+    if (msg !== undefined && msg !== null) {
+        logstashOutput['@message'] = msg;
+    }
+
+    logstashOutput['@timestamp'] = timestamp;
+    logstashOutput['@fields'] = merge(baseLog, meta);
+    return JSON.stringify(logstashOutput);
+}
 
 /**
  * options -> {
@@ -43,19 +70,24 @@ module.exports = function(applicationName, opts) {
         transports.push(
             new winston.transports.Console({
                 colorize: true,
-                timestamp: true
+                timestamp: true,
+                formatter: config.logs.logstash ? logFormatter : undefined,
+                json: false
             })
         );
     }
 
     if (config.logs.file) {
-        transports.push(new winston.transports.File({
+        transports.push(new winstonDaily({
             filename: config.logs.file,
+            json:false,
+            formatter: config.logs.logstash ? logFormatter : undefined,
         }));
     }
 
     const logger = new winston.Logger({
-        transports: transports
+        transports: transports,
+        levels: winston.config.syslog.levels
     });
 
     app.use(expressWinston.logger({
@@ -108,6 +140,10 @@ module.exports = function(applicationName, opts) {
         });
     }
     
+    process.on('uncaughtException', function(err) {
+      logger.crit('Fatal error, exiting : ', err);
+      process.exit();
+    });
     
    return { app, logger, config };
 }

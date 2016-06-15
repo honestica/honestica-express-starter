@@ -10,11 +10,13 @@
     "test": "tests"
   },
   "dependencies": {
+    "cycle": "^1.0.3",
     "express": "^4.13.4",
     "express-winston": "^1.4.1",
     "lodash.merge": "^4.4.0",
     "merge-defaults": "^0.2.1",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "winston-daily-rotate-file": "^1.1.4"
   },
   "devDependencies": {},
   "scripts": {
