@@ -7,7 +7,8 @@ Prepare an express app with config + logging + healthcheck
   "port": 3001, // port of the app
   "logs": {
     "console": true, // display logs to the console
-    "file": false // write logs to a file (Boolean or absolute path)
+    "file": false // write logs to a file (Boolean or absolute path),
+    "logstash": false // if logstash format should be used
   },
   "healthCheck": false // boolean or file where the healthcheck file is present (containing IN when service is UP)
 }
