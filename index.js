@@ -80,6 +80,7 @@ module.exports = function(applicationName, opts) {
     if (config.logs.file) {
         transports.push(new winstonDaily({
             filename: config.logs.file,
+            datePattern: '.yyyy-MM-dd.log',
             json:false,
             formatter: config.logs.logstash ? logFormatter : undefined,
         }));
