@@ -129,6 +129,11 @@
       "from": "fresh@0.3.0",
       "resolved": "https://registry.npmjs.org/fresh/-/fresh-0.3.0.tgz"
     },
+    "git-rev": {
+      "version": "0.2.1",
+      "from": "git-rev@latest",
+      "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/git-rev/-/git-rev-0.2.1.tgz"
+    },
     "has-color": {
       "version": "0.1.7",
       "from": "has-color@>=0.1.0 <0.2.0",
@@ -325,11 +330,6 @@
       "version": "2.2.0",
       "from": "winston@*",
       "resolved": "https://registry.npmjs.org/winston/-/winston-2.2.0.tgz"
-    },
-    "winston-daily-rotate-file": {
-      "version": "1.1.4",
-      "from": "winston-daily-rotate-file@latest",
-      "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/winston-daily-rotate-file/-/winston-daily-rotate-file-1.1.4.tgz"
     }
   }
 }

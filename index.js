@@ -3,7 +3,6 @@ const defaults = require('merge-defaults');
 const express = require('express');
 const winston = require('winston');
 const common = require('winston/lib/winston/common');
-const winstonDaily = require('winston-daily-rotate-file');
 const cycle = require('cycle');
 const expressWinston = require('express-winston');
 
@@ -70,7 +69,7 @@ module.exports = function(applicationName, opts) {
 
     try {
         const build = require(`${options.basePath}/build.json`);
-        lastCommit = build.lastCommit;
+        lastCommit = build.lastcommit;
         version = build.version;
     } catch(e) {}
     
@@ -92,9 +91,8 @@ module.exports = function(applicationName, opts) {
     }
 
     if (config.logs.file) {
-        transports.push(new winstonDaily({
+        transports.push(new winston.transports.file({
             filename: config.logs.file,
-            datePattern: '.yyyy-MM-dd.log',
             json: false,
             formatter: config.logs.logstash ? createLogFormatter(lastCommit, version) : undefined,
         }));
