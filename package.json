@@ -20,7 +20,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "last": "last-commit"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/honestica/honestica-express-node/issues"
+  },
+  "bin" : {
+    "create-build-info": "create-build-info.js"
   },
   "homepage": "https://github.com/honestica/honestica-express-node#readme"
 }

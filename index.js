@@ -9,32 +9,38 @@ const expressWinston = require('express-winston');
 
 const fs = require('fs');
 
-function logFormatter(log) {
-    const timestamp = common.timestamp();
-    const logstashOutput = {};
-    const meta = common.clone(cycle.decycle(log.meta)) || {};
-    const baseLog = {
-        level: log.level,
-        message: log.message,
-    };
-    let msg = log.message;
+function createLogFormatter(lastCommit, version) {
+    return function logFormatter(log) {
+        const timestamp = common.timestamp();
+        const logstashOutput = {};
+        const meta = common.clone(cycle.decycle(log.meta)) || {};
+        const baseLog = {
+            level: log.level,
+            message: log.message,
+            lastCommit: lastCommit,
+            version: version
+        };
 
-    if (typeof msg !== 'string') {
-        msg = '' + msg;
+        let msg = log.message;
+
+        if (typeof msg !== 'string') {
+            msg = '' + msg;
+        }
+
+        if (msg !== undefined && msg !== null) {
+            logstashOutput['@message'] = msg;
+        }
+
+        logstashOutput['@timestamp'] = timestamp;
+        logstashOutput['@fields'] = merge(baseLog, meta);
+        return JSON.stringify(logstashOutput);
     }
-
-    if (msg !== undefined && msg !== null) {
-        logstashOutput['@message'] = msg;
-    }
-
-    logstashOutput['@timestamp'] = timestamp;
-    logstashOutput['@fields'] = merge(baseLog, meta);
-    return JSON.stringify(logstashOutput);
 }
+
 
 /**
  * options -> {
- *  baseConfigPath: String,
+ *  basePath: String,
  *  heatlhCheckInfo: Function,
  *  autoStart: Boolean
  * }
@@ -49,16 +55,24 @@ module.exports = function(applicationName, opts) {
     });
     
     const config = require('./config.json');
-    
+    let lastCommit;
+    let version;
+
     try {
-        const userConfig = require(options.baseConfigPath);
+        const userConfig = require(`${options.basePath}/config.json`);
         config = merge(config, userConfig);
     } catch (e) {}
     
     try {
         const systemConfig = require(`/usr/local/honestica/${applicationName}/config.json`);
         config = merge(config, systemConfig);
-    } catch(e) {}    
+    } catch(e) {}
+
+    try {
+        const build = require(`${options.basePath}/build.json`);
+        lastCommit = build.lastCommit;
+        version = build.version;
+    } catch(e) {}
     
     // setup logs
     if (!config.logs) {
@@ -71,7 +85,7 @@ module.exports = function(applicationName, opts) {
             new winston.transports.Console({
                 colorize: true,
                 timestamp: true,
-                formatter: config.logs.logstash ? logFormatter : undefined,
+                formatter: config.logs.logstash ? createLogFormatter(lastCommit, version) : undefined,
                 json: false
             })
         );
@@ -81,8 +95,8 @@ module.exports = function(applicationName, opts) {
         transports.push(new winstonDaily({
             filename: config.logs.file,
             datePattern: '.yyyy-MM-dd.log',
-            json:false,
-            formatter: config.logs.logstash ? logFormatter : undefined,
+            json: false,
+            formatter: config.logs.logstash ? createLogFormatter(lastCommit, version) : undefined,
         }));
     }
 
