@@ -14,5 +14,6 @@ git.short(function (str) {
     if (err) {
       throw err;
     }
+    console.log('Wrote build.json');
   });
 })

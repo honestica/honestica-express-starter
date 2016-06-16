@@ -158,7 +158,7 @@ module.exports = function(applicationName, opts) {
     
     process.on('uncaughtException', function(err) {
       logger.crit('Fatal error, exiting : ', err);
-      process.exit();
+      process.exit(1);
     });
     
    return { app, logger, config };
