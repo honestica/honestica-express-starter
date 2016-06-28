@@ -27,7 +27,7 @@ const { app, logger, config } = honesticaStarter('myname', {
 
 ## To install it, set your .npmrc with the following
 ```
-registry="http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/""
+registry="http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/"
 email="youremail"
 always-auth="true"
 _auth="yourauthstring"
