@@ -1,3 +1,5 @@
+'use strict'
+
 const merge = require('lodash.merge');
 const defaults = require('merge-defaults');
 const express = require('express');
