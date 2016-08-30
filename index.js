@@ -125,7 +125,7 @@ module.exports = function(applicationName, opts) {
     if (options.autoStart) {
         app.listen(config.port, function () {
             logger.info(`${applicationName} started on port ${config.port}`);
-        });
+        }).on('error', (log) => logger.error(log));
     }
     
     
@@ -145,7 +145,7 @@ module.exports = function(applicationName, opts) {
                 if (err) {
                     logger.error('Health check file not found');
                 }
-                if (data !== 'IN') {
+                if (data.trim() !== 'IN') {
                     return res.sendStatus(503);;
                 } else {
                     return res.send({
