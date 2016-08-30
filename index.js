@@ -144,6 +144,7 @@ module.exports = function(applicationName, opts) {
             fs.readFile(config.healthCheck, 'utf8', function (err, data) {
                 if (err) {
                     logger.error('Health check file not found');
+                    return res.sendStatus(500);
                 }
                 if (data.trim() !== 'IN') {
                     return res.sendStatus(503);;
