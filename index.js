@@ -131,8 +131,7 @@ module.exports = function(applicationName, opts) {
 
     // health check
     if (config.healthCheck) {
-
-        app.all('/admin/health', function (req, res) {
+        const callback = function (req, res) {
 
             const method = req.method;
             // accept head and get
@@ -158,6 +157,9 @@ module.exports = function(applicationName, opts) {
                 }
             });
         });
+
+        app.all('/admin/health', callback);
+        app.all(`${appname}/admin/health`, callback);
     }
 
     process.on('uncaughtException', function(err) {
