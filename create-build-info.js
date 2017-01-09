@@ -7,7 +7,7 @@ const originalPath = process.cwd();
 git.short(function (str) {
 
   const versionFile = fs.readFileSync(`${originalPath}/pom.xml`, 'utf-8');
-  const regex = /<version>(.*)<\/version><!-- converted by expand_version, don't delete this comment -->/
+  const regex = /<version>(.*)<\/version>/
   const versionNumber = versionFile.match(regex);
 
   const build = {
