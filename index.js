@@ -48,7 +48,7 @@ function createLogFormatter(appname, lastcommit, version) {
  *  heatlhCheckInfo: Function,
  *  autoStart: Boolean
  * }
- * 
+ *
  * Returns base app + configured logger
  */
 module.exports = function(applicationName, opts) {
@@ -57,7 +57,7 @@ module.exports = function(applicationName, opts) {
         healthCheckInfo: function() {},
         autoStart: true
     });
-    
+
     const config = require('./config.json');
     let lastCommit;
     let version;
@@ -66,7 +66,7 @@ module.exports = function(applicationName, opts) {
         const userConfig = require(`${options.basePath}/config.json`);
         config = merge(config, userConfig);
     } catch (e) {}
-    
+
     try {
         const systemConfig = require(`/usr/local/honestica/${applicationName}/config.json`);
         config = merge(config, systemConfig);
@@ -77,7 +77,7 @@ module.exports = function(applicationName, opts) {
         lastCommit = build.lastcommit;
         version = build.version;
     } catch(e) {}
-    
+
     // setup logs
     if (!config.logs) {
         throw new Error('Need logs params in config');
@@ -110,10 +110,10 @@ module.exports = function(applicationName, opts) {
 
     app.use(expressWinston.logger({
         transports: transports,
-        meta: true, 
-        msg: "HTTP {{req.method}} {{req.url}}", 
-        expressFormat: true, 
-        colorStatus: true 
+        meta: true,
+        msg: "HTTP {{req.method}} {{req.url}}",
+        expressFormat: true,
+        colorStatus: true
     }));
 
 
@@ -121,25 +121,25 @@ module.exports = function(applicationName, opts) {
     if (!config.port) {
         throw new Error('No port found in config file');
     }
-    
+
     if (options.autoStart) {
         app.listen(config.port, function () {
             logger.info(`${applicationName} started on port ${config.port}`);
         }).on('error', (log) => logger.error(log));
     }
-    
-    
+
+
     // health check
     if (config.healthCheck) {
-        
+
         app.all('/admin/health', function (req, res) {
-            
+
             const method = req.method;
             // accept head and get
             if (!(method === 'HEAD' || method === 'GET')) {
                 return res.sendStatus(405);
             }
-            
+
             // read health check file
             fs.readFile(config.healthCheck, 'utf8', function (err, data) {
                 if (err) {
@@ -152,17 +152,18 @@ module.exports = function(applicationName, opts) {
                     return res.send({
                         uptime: process.uptime(),
                         name: applicationName,
+                        version: version,
                         app: options.healthCheckInfo()
                     });
                 }
             });
         });
     }
-    
+
     process.on('uncaughtException', function(err) {
       logger.crit('Fatal error, exiting : ', err);
       process.exit(1);
     });
-    
+
    return { app, logger, config };
 }
