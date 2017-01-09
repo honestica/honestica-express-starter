@@ -156,7 +156,7 @@ module.exports = function(applicationName, opts) {
                     });
                 }
             });
-        });
+        };
 
         app.all('/admin/health', callback);
         app.all(`${appname}/admin/health`, callback);
