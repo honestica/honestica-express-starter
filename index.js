@@ -152,6 +152,7 @@ module.exports = function(applicationName, opts) {
                         uptime: process.uptime(),
                         name: applicationName,
                         version: version,
+                        lastcommit: lastCommit,
                         app: options.healthCheckInfo()
                     });
                 }
