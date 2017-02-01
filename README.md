@@ -29,8 +29,9 @@ const { app, logger, config } = honesticaStarter('myname', {
 ```
 registry="http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/"
 email="youremail"
-always-auth="true"
-_auth="yourauthstring"
+//registry.npmjs.org/:always-auth=false
+//nexus.technical.honestica.com:18081/:always-auth=true
+//nexus.technical.honestica.com:18081/:_auth="yourauthstring"
 ```
 
 Your auth string can be obtained by `base64` the string 'username:password' of your `nexus` account
