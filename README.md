@@ -1,4 +1,4 @@
-# honestica-express-node
+# honestica-express-starter
 Prepare an express app with config + logging + healthcheck 
 
 ## Default config file
