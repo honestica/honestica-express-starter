@@ -18,10 +18,8 @@ function createLogFormatter(appname, lastcommit, version) {
             version,
             appname
         };
-
         const meta = common.clone(cycle.decycle(log.meta)) || {};
         const baseLog = {
-            level: log.level,
             message: log.message
         };
 
@@ -32,11 +30,14 @@ function createLogFormatter(appname, lastcommit, version) {
         }
 
         if (msg !== undefined && msg !== null) {
-            logstashOutput['@message'] = msg;
+            logstashOutput['message'] = msg;
         }
 
         logstashOutput['@timestamp'] = timestamp;
-        logstashOutput['@fields'] = merge(baseLog, meta);
+        logstashOutput['level'] = log.level;
+        logstashOutput['X-B3-TraceId'] = meta['X-B3-TraceId'];
+        logstashOutput['fields'] = merge(baseLog, meta);
+
         return JSON.stringify(logstashOutput);
     }
 }
