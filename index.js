@@ -104,9 +104,28 @@ module.exports = function(applicationName, opts) {
         }));
     }
 
+    const myCustomLevels = {
+        levels: {
+          ERROR: 0,
+          WARN: 1,
+          INFO: 2,
+          VERBOSE: 3,
+          DEBUG: 4,
+          SILLY: 5
+        },
+        colors: {
+          ERROR: 'blue',
+          WARN: 'green',
+          INFO: 'green',
+          VERBOSE: 'green',
+          DEBUG: 'red',
+          SILLY: 'red'
+        }
+      };
+
     const logger = new winston.Logger({
         transports: transports,
-        levels: winston.config.syslog.levels
+        levels: myCustomLevels.levels
     });
 
     app.use(expressWinston.logger({
@@ -165,7 +184,7 @@ module.exports = function(applicationName, opts) {
     }
 
     process.on('uncaughtException', function(err) {
-      logger.crit('Fatal error, exiting : ', err);
+      logger.WARN('Fatal error, exiting : ', err);
       process.exit(1);
     });
 
