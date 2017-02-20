@@ -184,7 +184,7 @@ module.exports = function(applicationName, opts) {
     }
 
     process.on('uncaughtException', function(err) {
-      logger.WARN('Fatal error, exiting : ', err);
+      logger.ERROR('Fatal error, exiting : ', err);
       process.exit(1);
     });
 
