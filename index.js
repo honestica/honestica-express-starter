@@ -18,10 +18,8 @@ function createLogFormatter(appname, lastcommit, version) {
             version,
             appname
         };
-
         const meta = common.clone(cycle.decycle(log.meta)) || {};
         const baseLog = {
-            level: log.level,
             message: log.message
         };
 
@@ -32,11 +30,14 @@ function createLogFormatter(appname, lastcommit, version) {
         }
 
         if (msg !== undefined && msg !== null) {
-            logstashOutput['@message'] = msg;
+            logstashOutput['message'] = msg;
         }
 
         logstashOutput['@timestamp'] = timestamp;
-        logstashOutput['@fields'] = merge(baseLog, meta);
+        logstashOutput['level'] = log.level;
+        logstashOutput['X-B3-TraceId'] = meta['X-B3-TraceId'];
+        logstashOutput['fields'] = merge(baseLog, meta);
+
         return JSON.stringify(logstashOutput);
     }
 }
@@ -103,9 +104,28 @@ module.exports = function(applicationName, opts) {
         }));
     }
 
+    const myCustomLevels = {
+        levels: {
+          ERROR: 0,
+          WARN: 1,
+          INFO: 2,
+          VERBOSE: 3,
+          DEBUG: 4,
+          SILLY: 5
+        },
+        colors: {
+          ERROR: 'blue',
+          WARN: 'green',
+          INFO: 'green',
+          VERBOSE: 'green',
+          DEBUG: 'red',
+          SILLY: 'red'
+        }
+      };
+
     const logger = new winston.Logger({
         transports: transports,
-        levels: winston.config.syslog.levels
+        levels: myCustomLevels.levels
     });
 
     app.use(expressWinston.logger({
@@ -164,7 +184,7 @@ module.exports = function(applicationName, opts) {
     }
 
     process.on('uncaughtException', function(err) {
-      logger.crit('Fatal error, exiting : ', err);
+      logger.WARN('Fatal error, exiting : ', err);
       process.exit(1);
     });
 
