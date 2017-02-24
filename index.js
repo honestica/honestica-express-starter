@@ -91,7 +91,9 @@ module.exports = function(applicationName, opts) {
                 colorize: true,
                 timestamp: true,
                 formatter: config.logs.logstash ? createLogFormatter(applicationName, lastCommit, version) : undefined,
-                json: false
+                json: false,
+                handleExceptions: true,
+                humanReadableUnhandledException: true
             })
         );
     }
@@ -101,6 +103,8 @@ module.exports = function(applicationName, opts) {
             filename: config.logs.file,
             json: false,
             formatter: config.logs.logstash ? createLogFormatter(applicationName, lastCommit, version) : undefined,
+            handleExceptions: true,
+            humanReadableUnhandledException: true
         }));
     }
 
@@ -144,8 +148,8 @@ module.exports = function(applicationName, opts) {
 
     if (options.autoStart) {
         app.listen(config.port, function () {
-            logger.info(`${applicationName} started on port ${config.port}`);
-        }).on('error', (log) => logger.error(log));
+            logger.INFO(`${applicationName} started on port ${config.port}`);
+        }).on('error', (log) => logger.ERROR(log));
     }
 
 
@@ -162,7 +166,7 @@ module.exports = function(applicationName, opts) {
             // read health check file
             fs.readFile(config.healthCheck, 'utf8', function (err, data) {
                 if (err) {
-                    logger.error('Health check file not found');
+                    logger.ERROR('Health check file not found');
                     return res.sendStatus(500);
                 }
                 if (data.trim() !== 'IN') {
@@ -183,10 +187,7 @@ module.exports = function(applicationName, opts) {
         app.all(`/${applicationName}/admin/health`, callback);
     }
 
-    process.on('uncaughtException', function(err) {
-      logger.ERROR('Fatal error, exiting : ', err);
-      process.exit(1);
-    });
+
 
    return { app, logger, config };
 }
