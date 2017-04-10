@@ -133,7 +133,7 @@ module.exports = function(applicationName, opts) {
         level: 'INFO'
     });
 
-    logger.addColors(myCustomLevels.colors);
+    winston.addColors(myCustomLevels.colors);
 
     app.use(expressWinston.logger({
         transports: transports,
