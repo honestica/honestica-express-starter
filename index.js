@@ -129,7 +129,8 @@ module.exports = function(applicationName, opts) {
 
     const logger = new winston.Logger({
         transports: transports,
-        levels: myCustomLevels.levels
+        levels: myCustomLevels.levels,
+        level: 'INFO'
     });
 
     app.use(expressWinston.logger({
