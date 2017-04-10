@@ -1,6 +1,6 @@
 {
   "name": "honestica-express-starter",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "description": "Give an express app with config + logging + heatlhcheck",
   "main": "index.js",
   "publishConfig": {
