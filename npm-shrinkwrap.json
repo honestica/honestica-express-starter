@@ -132,7 +132,7 @@
     "git-rev": {
       "version": "0.2.1",
       "from": "git-rev@latest",
-      "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/git-rev/-/git-rev-0.2.1.tgz"
+      "resolved": "https://registry.npmjs.org/git-rev/-/git-rev-0.2.1.tgz"
     },
     "has-color": {
       "version": "0.1.7",
@@ -167,7 +167,7 @@
     "lodash._baseclone": {
       "version": "4.5.7",
       "from": "lodash._baseclone@>=4.5.0 <4.6.0",
-      "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/lodash._baseclone/-/lodash._baseclone-4.5.7.tgz"
+      "resolved": "https://registry.npmjs.org/lodash._baseclone/-/lodash._baseclone-4.5.7.tgz"
     },
     "lodash._root": {
       "version": "3.0.1",
@@ -177,17 +177,17 @@
     "lodash.isplainobject": {
       "version": "4.0.4",
       "from": "lodash.isplainobject@>=4.0.0 <5.0.0",
-      "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/lodash.isplainobject/-/lodash.isplainobject-4.0.4.tgz"
+      "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.4.tgz"
     },
     "lodash.keysin": {
       "version": "4.1.4",
       "from": "lodash.keysin@>=4.0.0 <5.0.0",
-      "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/lodash.keysin/-/lodash.keysin-4.1.4.tgz"
+      "resolved": "https://registry.npmjs.org/lodash.keysin/-/lodash.keysin-4.1.4.tgz"
     },
     "lodash.merge": {
       "version": "4.4.0",
       "from": "lodash.merge@latest",
-      "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/lodash.merge/-/lodash.merge-4.4.0.tgz"
+      "resolved": "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.4.0.tgz"
     },
     "lodash.rest": {
       "version": "4.0.3",
@@ -282,12 +282,12 @@
     "serve-static": {
       "version": "1.10.3",
       "from": "serve-static@>=1.10.2 <1.11.0",
-      "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/serve-static/-/serve-static-1.10.3.tgz",
+      "resolved": "https://registry.npmjs.org/serve-static/-/serve-static-1.10.3.tgz",
       "dependencies": {
         "send": {
           "version": "0.13.2",
           "from": "send@0.13.2",
-          "resolved": "http://nexus.technical.honestica.com:18081/nexus/content/groups/npm-all/send/-/send-0.13.2.tgz"
+          "resolved": "https://registry.npmjs.org/send/-/send-0.13.2.tgz"
         }
       }
     },
