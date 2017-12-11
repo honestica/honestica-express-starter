@@ -5,8 +5,6 @@ const fs = require("fs");
 const originalPath = process.cwd();
 
 git.short(function(str) {
-  const versionFile = fs.readFileSync(`${originalPath}/pom.xml`, "utf-8");
-  const regex = /<version>(.*)<\/version>/;
   const versionNumber = process.env.VERSION ? process.env.VERSION : "dev";
 
   const build = {
